@@ -7,7 +7,8 @@ const inputEmailEl = document.querySelector('.feedback-form input');
 const textareaEl = document.querySelector('.feedback-form textarea');
 
 /////////////////save data to localStarage///////////////////
-formEl.addEventListener('input', onInput);
+
+formEl.addEventListener('input', throttle(onInput, 500));
 
 function onInput(evt) {
   const userData = { email: inputEmailEl.value, message: textareaEl.value };
@@ -17,6 +18,7 @@ function onInput(evt) {
 }
 
 ///////////////submit data//////////////////////////////
+
 formEl.addEventListener('submit', onSubmit);
 
 function onSubmit(evt) {
@@ -25,7 +27,9 @@ function onSubmit(evt) {
   evt.currentTarget.reset();
   localStorage.removeItem(LOCALSTORAGE_KEY);
 }
+
 /////////////////auto-complete/////////////////////////////
+
 function populateTextarea() {
   const savedMessage = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
 
